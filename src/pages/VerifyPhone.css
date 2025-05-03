@@ -1,0 +1,204 @@
+.verify-phone-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f8fafc;
+  direction: rtl;
+  font-family: 'Vazirmatn', sans-serif;
+}
+
+.verify-phone-box h1 {
+  color: #1e293b;
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+.verify-phone-container h1 {
+  text-align: center;
+}
+
+.subtitle {
+  color: #64748b;
+  font-size: 1.75rem;
+  margin-bottom: 4rem;
+}
+
+.verify-phone-form {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.form-group {
+  text-align: right;
+}
+
+.phone-input-container {
+  position: relative;
+  direction: ltr;
+}
+
+.clear-phone {
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  font-size: 1.25rem;
+  color: #9ca3af;
+  cursor: pointer;
+  padding: 0;
+  z-index: 10;
+}
+
+.clear-phone:hover {
+  color: #ef4444;
+}
+
+.react-tel-input .country-list {
+  text-align: left !important;
+  direction: ltr !important;
+}
+
+.react-tel-input .form-control {
+  border: none;
+  border-bottom: 2px solid #e2e8f0;
+  border-radius: 0;
+  background-color: transparent;
+  box-shadow: none;
+  font-size: 1.2rem;
+  padding-left: 48px;
+  padding-right: 8px;
+}
+
+.react-tel-input .flag-dropdown {
+  background-color: transparent;
+  border: none;
+}
+
+.react-tel-input .selected-flag {
+  padding-left: 8px;
+}
+
+.react-tel-input .form-control:focus {
+  border-color: #7c3aed;
+  box-shadow: none;
+  outline: none;
+}
+
+.react-tel-input .country-list {
+  font-size: 0.9rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+.PhoneInput.error {
+  border-color: #ef4444;
+  box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.3);
+}
+
+.PhoneInputInput {
+  border: none;
+  font-size: 1.25rem;
+  padding: 1rem;
+  font-family: inherit;
+  outline: none !important;
+  box-shadow: none !important;
+  background-color: transparent;
+  direction: ltr;
+  width: 100%;
+}
+
+.PhoneInputCountry {
+  margin-left: 0 !important;
+  padding-left: 0 !important;
+  border-left: none !important;
+}
+
+.PhoneInputCountry {
+  display: flex;
+  align-items: center;
+  padding-left: 0.5rem !important;
+  margin-left: 0 !important;
+  gap: 0.25rem !important;
+}
+
+.PhoneInputCountrySelect {
+  padding: 0 !important;
+  margin: 0 !important;
+  background: none !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.PhoneInputInput {
+  padding-left: 0 !important;
+}
+
+.verify-btn {
+  background-color: #7c3aed;
+  color: white;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.verify-btn:hover:not(:disabled) {
+  background-color: #6d28d9;
+  transform: translateY(-1px);
+}
+
+.verify-btn:disabled {
+  background-color: #e2e8f0;
+  cursor: not-allowed;
+}
+
+.back-btn {
+  background: none;
+  border: 1px solid #e2e8f0;
+  color: #64748b;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  width: 100%;
+}
+
+.back-btn:hover {
+  background-color: #f8fafc;
+  border-color: #cbd5e1;
+}
+
+/* Ensure flag and country code are tightly aligned */
+.PhoneInputCountry {
+  display: flex;
+  align-items: center;
+  padding: 2 !important;
+  margin: 2 !important;
+  gap: 2 !important;
+  border: none !important;
+}
+
+/* Remove any dropdown button spacing or styling */
+.PhoneInputCountrySelect {
+  padding: 2 !important;
+  margin: 2 !important;
+  background: none !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+/* Make sure the input doesn't push the country code */
+input.PhoneInputInput {
+  padding-left: 10px !important;
+}

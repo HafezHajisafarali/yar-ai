@@ -1,0 +1,108 @@
+.icon {
+  width: 24px;
+  height: 24px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.icon path {
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+}
+
+.icon.small {
+  width: 16px;
+  height: 16px;
+}
+
+.icon.large {
+  width: 32px;
+  height: 32px;
+}
+
+.icon.primary {
+  color: #007bff;
+}
+
+.icon.secondary {
+  color: #6c757d;
+}
+
+.icon.success {
+  color: #28a745;
+}
+
+.icon.danger {
+  color: #dc3545;
+}
+
+.icon.warning {
+  color: #ffc107;
+}
+
+.icon.info {
+  color: #17a2b8;
+}
+
+.icon.light {
+  color: #f8f9fa;
+}
+
+.icon.dark {
+  color: #343a40;
+}
+
+.icon.white {
+  color: white;
+}
+
+.icon.black {
+  color: black;
+}
+
+.icon.gray {
+  color: #6c757d;
+}
+
+.icon.blue {
+  color: #007bff;
+}
+
+.icon.indigo {
+  color: #6610f2;
+}
+
+.icon.purple {
+  color: #6f42c1;
+}
+
+.icon.pink {
+  color: #e83e8c;
+}
+
+.icon.red {
+  color: #dc3545;
+}
+
+.icon.orange {
+  color: #fd7e14;
+}
+
+.icon.yellow {
+  color: #ffc107;
+}
+
+.icon.green {
+  color: #28a745;
+}
+
+.icon.teal {
+  color: #20c997;
+}
+
+.icon.cyan {
+  color: #17a2b8;
+} 
