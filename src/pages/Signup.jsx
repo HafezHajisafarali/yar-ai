@@ -49,8 +49,8 @@ const Signup = () => {
       if (firstName && lastName) {
         try {
           console.log("🔍 Sending data:", { name: `${firstName.trim()} ${lastName.trim()}`, email: `${firstName.trim()}.${lastName.trim()}@mock.com` });
-          console.log("🧪 Fetching http://localhost:5050/api/auth/register");
-          const res = await fetch("http://localhost:5050/api/auth/register", {
+          console.log("🧪 Fetching https://bb9d-13-60-235-129.ngrok-free.app/api/auth/google");
+          const res = await fetch("https://bb9d-13-60-235-129.ngrok-free.app/api/auth/google", {
             method: "POST",
             headers: {
               "Content-Type": "application/json"
