@@ -33,7 +33,7 @@ const Signup = () => {
   const handleGoogleSuccess = async (credentialResponse) => {
     console.log(credentialResponse);
     try {
-      const res = await fetch("https://four-cases-buy.loca.lt/api", {
+      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -65,8 +65,8 @@ const Signup = () => {
       if (firstName && lastName) {
         try {
           console.log("🔍 Sending data:", { name: `${firstName.trim()} ${lastName.trim()}`, email: `${firstName.trim()}.${lastName.trim()}@mock.com` });
-          console.log("🧪 Fetching https://four-cases-buy.loca.lt/api");
-          const res = await fetch("https://four-cases-buy.loca.lt/api", {
+          console.log("🧪 Fetching", import.meta.env.VITE_API_BASE_URL);
+          const res = await fetch(import.meta.env.VITE_API_BASE_URL, {
             method: "POST",
             headers: {
               "Content-Type": "application/json"
