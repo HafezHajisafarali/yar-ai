@@ -31,7 +31,7 @@ console.log("🔧 Setting up middleware...");
 
 // Middlewares
 app.use(cors({
-  origin: ['http://localhost:3000', 'http://localhost:5173'], // Add Vite's default port
+  origin: ['http://localhost:3000', 'http://localhost:5173', 'https://y4r.net'], // Added deployed frontend domain
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true,
   allowedHeaders: ['Content-Type', 'Authorization']
