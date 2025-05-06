@@ -74,7 +74,7 @@ const api = USE_MOCK_API ? {
     return mockApiResponse({ success: true });
   }
 } : axios.create({
-  baseURL: 'http://localhost:5050/api',
+  baseURL: import.meta.env.VITE_API_BASE_URL,
   timeout: 10000,
   headers: {
     'Content-Type': 'application/json',
