@@ -1,0 +1,27 @@
+app = "yar-ai"  # همون اسمی که دادی توی Fly.io
+
+primary_region = "ams"
+
+[build]
+  builder = "heroku/buildpacks:20"
+
+[env]
+  NODE_ENV = "production"
+  PORT = "5050"
+
+[[services]]
+  internal_port = 5050
+  protocol = "tcp"
+
+  [[services.ports]]
+    handlers = ["http"]
+    port = 80
+
+  [[services.ports]]
+    handlers = ["tls", "http"]
+    port = 443
+
+  [[services.tcp_checks]]
+    interval = "10s"
+    timeout = "2s"
+    grace_period = "10s"

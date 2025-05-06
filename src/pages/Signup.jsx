@@ -17,7 +17,7 @@ const Signup = () => {
   const handleGoogleSuccess = async (credentialResponse) => {
     console.log(credentialResponse);
     try {
-      const res = await fetch("http://localhost:5050/api/auth/google", {
+      const res = await fetch("https://bb9d-13-60-235-129.ngrok-free.app/api/auth/google", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

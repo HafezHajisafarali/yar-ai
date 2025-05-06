@@ -58,8 +58,8 @@
   font-size: 0.875rem;
   cursor: pointer;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: right;
+  justify-content: right;
   gap: 0.5rem;
   margin-bottom: 2rem;
   transition: all 0.2s;
