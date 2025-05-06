@@ -17,7 +17,7 @@ const Signup = () => {
   const handleGoogleSuccess = async (credentialResponse) => {
     console.log(credentialResponse);
     try {
-      const res = await fetch("https://bb9d-13-60-235-129.ngrok-free.app/api/auth/google", {
+      const res = await fetch("https://four-cases-buy.loca.lt/api", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -49,8 +49,8 @@ const Signup = () => {
       if (firstName && lastName) {
         try {
           console.log("🔍 Sending data:", { name: `${firstName.trim()} ${lastName.trim()}`, email: `${firstName.trim()}.${lastName.trim()}@mock.com` });
-          console.log("🧪 Fetching https://bb9d-13-60-235-129.ngrok-free.app/api/auth/google");
-          const res = await fetch("https://bb9d-13-60-235-129.ngrok-free.app/api/auth/google", {
+          console.log("🧪 Fetching https://four-cases-buy.loca.lt/api");
+          const res = await fetch("https://four-cases-buy.loca.lt/api", {
             method: "POST",
             headers: {
               "Content-Type": "application/json"
