@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import { useEffect as useEffectOriginal } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Signup.css";
 
@@ -13,6 +14,21 @@ const Signup = () => {
   useEffect(() => {
     document.documentElement.style.setProperty('--progress', currentStep);
   }, [currentStep]);
+
+  useEffect(() => {
+    /* global google */
+    if (window.google) {
+      google.accounts.id.initialize({
+        client_id: "408482867426-gb5vpue5a328g7nkraq9lg0v3rhok48i.apps.googleusercontent.com",
+        callback: handleGoogleSuccess,
+      });
+
+      google.accounts.id.renderButton(
+        document.getElementById("google-signin-btn"),
+        { theme: "outline", size: "large" }
+      );
+    }
+  }, []);
 
   const handleGoogleSuccess = async (credentialResponse) => {
     console.log(credentialResponse);
@@ -162,6 +178,9 @@ const Signup = () => {
             {currentStep === totalSteps ? "تایید" : "بریم مرحله بعد"}
           </button>
 
+          {currentStep === 1 && (
+            <div id="google-signin-btn" style={{ marginTop: '1rem' }}></div>
+          )}
           {currentStep === 1 && (
             <div className="signup-link">
               <span>قبلاً ثبت‌نام کردی؟</span>
