@@ -89,7 +89,7 @@ const startServer = async () => {
     // Try ports: 5050 → 5051 → 5052
     const tryPort = async (port) => {
       return new Promise((resolve, reject) => {
-        const server = app.listen(port)
+        const server = app.listen(port, '0.0.0.0')
           .once('listening', () => {
             console.log(`🚀 Server running at: http://localhost:${port}`);
             resolve();
