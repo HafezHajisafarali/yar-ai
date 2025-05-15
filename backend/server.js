@@ -44,8 +44,9 @@ app.use((req, res, next) => {
 });
 
 app.get("/", (req, res) => {
-  res.send("<h1>✅ YAR Backend is up and running!</h1>");
+  res.send("<h1>✅ YAR Backend is running and secure over HTTPS!</h1>");
 });
+
 
 // ✅ Session config
 app.use(session({
