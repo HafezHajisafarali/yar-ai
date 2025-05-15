@@ -43,6 +43,10 @@ app.use((req, res, next) => {
   next();
 });
 
+app.get("/", (req, res) => {
+  res.send("<h1>✅ YAR Backend is up and running!</h1>");
+});
+
 // ✅ Session config
 app.use(session({
   secret: process.env.SESSION_SECRET || 'mySecret',
