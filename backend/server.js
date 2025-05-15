@@ -74,11 +74,14 @@ app.use("/api/tools", toolsRoutes);
 app.use("/api/auth", authRoutes);
 console.log("✅ API routes loaded");
 
-// 🔥 Serve frontend build
-app.use(express.static(path.join(__dirname, '../frontend/dist')));
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../frontend/dist/index.html'));
-});
+// 🔥 Serve frontend build only in production
+if (process.env.NODE_ENV === 'production') {
+  const distPath = path.join(__dirname, '../frontend/dist');
+  app.use(express.static(distPath));
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(distPath, 'index.html'));
+  });
+}
 
 // Error handler
 app.use((err, req, res, next) => {
