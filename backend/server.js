@@ -73,6 +73,7 @@ app.get("/ping", (req, res) => {
 app.use("/api/tools", toolsRoutes);
 app.use("/api/auth", authRoutes);
 console.log("✅ API routes loaded");
+console.log("✅ NODE_ENV:", process.env.NODE_ENV);
 
 // 🔥 Serve frontend build only in production
 if (process.env.NODE_ENV === 'production') {
