@@ -1,28 +1,31 @@
+// Load environment variables
 import dotenv from 'dotenv';
 dotenv.config();
 
-// ✅ Debug .env variables
-console.log("Environment variables loaded:");
-console.log("OPENAI_API_KEY exists:", !!process.env.OPENAI_API_KEY);
-console.log("PORT:", process.env.PORT);
-console.log("NODE_ENV:", process.env.NODE_ENV);
+// Debug loaded environment variables
+console.log("🟢 Environment variables loaded:");
+console.log("🔑 OPENAI_API_KEY exists:", !!process.env.OPENAI_API_KEY);
+console.log("🌐 PORT:", process.env.PORT);
+console.log("🌍 NODE_ENV:", process.env.NODE_ENV);
 console.log("🔐 JWT_SECRET:", process.env.JWT_SECRET);
 
+// Dependencies
 import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
-import passport from './config/passport.js';
 import session from 'express-session';
+import passport from './config/passport.js';
 import toolsRoutes from './routes/toolsRoutes.js';
 import authRoutes from './routes/authRoutes.js';
 
+// Express app & config
 const app = express();
 const PORT = parseInt(process.env.PORT) || 5050;
 const MONGO_URI = process.env.MONGO_URI;
 
-console.log("🔧 Setting up middlewares...");
+// Middlewares
+console.log("⚙️ Setting up middlewares...");
 
-// ✅ CORS middleware (اجازه به همه originها - مخصوص تست و دیپلوی موقت)
 app.use(cors({
   origin: (origin, callback) => {
     console.log('🌐 Request Origin:', origin);
@@ -32,23 +35,16 @@ app.use(cors({
   credentials: true,
   allowedHeaders: ['Content-Type', 'Authorization'],
 }));
-console.log("✅ CORS middleware applied");
+console.log("✅ CORS applied");
 
 app.use(express.json());
-console.log("✅ JSON middleware applied");
+console.log("✅ JSON parser applied");
 
-// ✅ Log all incoming requests
 app.use((req, res, next) => {
   console.log(`📥 ${req.method} ${req.url}`);
   next();
 });
 
-app.get("/", (req, res) => {
-  res.send("<h1>✅ YAR Backend is running and secure over HTTPS!</h1>");
-});
-
-
-// ✅ Session config
 app.use(session({
   secret: process.env.SESSION_SECRET || 'mySecret',
   resave: false,
@@ -61,48 +57,48 @@ app.use(session({
 }));
 console.log("✅ Session middleware applied");
 
-// ✅ Initialize passport
 app.use(passport.initialize());
 app.use(passport.session());
 console.log("✅ Passport initialized");
 
-// ✅ Health check route
-app.get('/ping', (req, res) => {
-  res.send('✅ YAR backend is alive and running!');
+// 🔗 Routes
+app.get("/", (req, res) => {
+  res.send("<h1>✅ YAR Backend is running and secure over HTTPS!</h1>");
 });
 
-// ✅ API routes
-app.use('/api/tools', toolsRoutes);
-app.use('/api/auth', authRoutes);
-console.log("✅ Routes loaded");
+app.get("/ping", (req, res) => {
+  res.send("✅ YAR backend is alive and running!");
+});
 
-// ✅ Error handler
+app.use("/api/tools", toolsRoutes);
+app.use("/api/auth", authRoutes);
+console.log("✅ API routes loaded");
+
+// Error handler
 app.use((err, req, res, next) => {
-  console.error('❌ Server error:', err);
+  console.error("❌ Server error:", err);
   res.status(500).json({ message: 'خطای سرور داخلی.' });
 });
 
-// ✅ MongoDB connection & server startup
+// 🔌 MongoDB & Server Startup
 const startServer = async () => {
   try {
-    if (!MONGO_URI) throw new Error('❌ MONGO_URI is not defined');
+    if (!MONGO_URI) throw new Error("❌ MONGO_URI not defined");
 
     console.log("🔄 Connecting to MongoDB...");
     await mongoose.connect(MONGO_URI, { serverSelectionTimeoutMS: 3000 });
     console.log("✅ MongoDB connected");
 
-    // Try ports: 5050 → 5051 → 5052
     const tryPort = async (port) => {
       return new Promise((resolve, reject) => {
         const server = app.listen(port, '0.0.0.0')
           .once('listening', () => {
-            console.log(`🚀 Server running at: http://localhost:${port}`);
+            console.log(`🚀 Server is running at http://localhost:${port}`);
             resolve();
           })
           .once('error', (err) => {
             if (err.code === 'EADDRINUSE') {
-              console.log(`⚠️ Port ${port} in use, trying next...`);
-              server.close();
+              console.log(`⚠️ Port ${port} in use, trying ${port + 1}...`);
               reject(err);
             } else {
               reject(err);
@@ -116,7 +112,7 @@ const startServer = async () => {
 
     await tryPort(PORT);
   } catch (err) {
-    console.error('❌ Server failed to start:\n', err);
+    console.error("❌ Failed to start server:\n", err);
     process.exit(1);
   }
 };
