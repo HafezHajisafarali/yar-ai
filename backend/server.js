@@ -63,7 +63,7 @@ console.log("✅ Passport initialized");
 
 // 🔗 Routes
 app.get("/", (req, res) => {
-  res.send("<h1>✅ YAR Backend is running and secure over HTTPS!</h1>");
+  res.send("<h1>🚀 YAR Backend: Running live with HTTPS and PM2!</h1>");
 });
 
 app.get("/ping", (req, res) => {
