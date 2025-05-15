@@ -18,11 +18,23 @@ import session from 'express-session';
 import passport from './config/passport.js';
 import toolsRoutes from './routes/toolsRoutes.js';
 import authRoutes from './routes/authRoutes.js';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+// Serve frontend static files
+app.use(express.static(path.join(__dirname, '../frontend/build')));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../frontend/build/index.html'));
+});
 
 // Express app & config
 const app = express();
 const PORT = parseInt(process.env.PORT) || 5050;
 const MONGO_URI = process.env.MONGO_URI;
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 
 // Middlewares
 console.log("⚙️ Setting up middlewares...");
