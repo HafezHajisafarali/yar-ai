@@ -21,20 +21,12 @@ import authRoutes from './routes/authRoutes.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
-// Serve frontend static files
-app.use(express.static(path.join(__dirname, '../frontend/dist')));
-
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../frontend/dist/index.html'));
-});
-
 // Express app & config
 const app = express();
 const PORT = parseInt(process.env.PORT) || 5050;
 const MONGO_URI = process.env.MONGO_URI;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-
 
 // Middlewares
 console.log("⚙️ Setting up middlewares...");
@@ -74,18 +66,19 @@ app.use(passport.initialize());
 app.use(passport.session());
 console.log("✅ Passport initialized");
 
-// 🔗 Routes
-app.get("/", (req, res) => {
-  res.send("<h1>🚀 YAR Backend: Running live with HTTPS and PM2!</h1>");
-});
-
+// API routes
 app.get("/ping", (req, res) => {
   res.send("✅ YAR backend is alive and running!");
 });
-
 app.use("/api/tools", toolsRoutes);
 app.use("/api/auth", authRoutes);
 console.log("✅ API routes loaded");
+
+// 🔥 Serve frontend build
+app.use(express.static(path.join(__dirname, '../frontend/dist')));
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../frontend/dist/index.html'));
+});
 
 // Error handler
 app.use((err, req, res, next) => {
@@ -93,7 +86,7 @@ app.use((err, req, res, next) => {
   res.status(500).json({ message: 'خطای سرور داخلی.' });
 });
 
-// 🔌 MongoDB & Server Startup
+// MongoDB & Server Start
 const startServer = async () => {
   try {
     if (!MONGO_URI) throw new Error("❌ MONGO_URI not defined");
