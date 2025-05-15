@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 // Debug loaded environment variables
+console.log("🔍 GOOGLE_CLIENT_ID:", process.env.GOOGLE_CLIENT_ID);
 console.log("🟢 Environment variables loaded:");
 console.log("🔑 OPENAI_API_KEY exists:", !!process.env.OPENAI_API_KEY);
 console.log("🌐 PORT:", process.env.PORT);
