@@ -76,8 +76,10 @@ app.get("/ping", (req, res) => {
 console.log("✅ API routes loaded");
 console.log("✅ NODE_ENV:", process.env.NODE_ENV);
 
-// Serve frontend always (including local dev)
-// Serve frontend only for non-API routes and non-file requests
+// Serve static files first
+app.use(express.static(distPath));
+
+// Catch-all: serve index.html for non-API, non-static requests
 app.get('*', (req, res, next) => {
   if (req.originalUrl.startsWith('/api')) return next();
 
@@ -87,8 +89,6 @@ app.get('*', (req, res, next) => {
 
   next();
 });
-
-app.use(express.static(distPath));
 
 
 // Error handler
