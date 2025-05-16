@@ -27,7 +27,7 @@ const PORT = parseInt(process.env.PORT) || 5050;
 const MONGO_URI = process.env.MONGO_URI;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const distPath = path.join(__dirname, '../dist');
+const distPath = path.join(__dirname, '../frontend/dist');
 
 // Middlewares
 console.log("⚙️ Setting up middlewares...");
@@ -67,6 +67,16 @@ app.use(passport.initialize());
 app.use(passport.session());
 console.log("✅ Passport initialized");
 
+// Serve frontend always (including local dev)
+app.use(express.static(distPath));
+
+// This should always come after express.static
+app.get('*', (req, res, next) => {
+  // Avoid matching API routes
+  if (req.originalUrl.startsWith('/api')) return next();
+  res.sendFile(path.join(distPath, 'index.html'));
+});
+
 // API routes
 app.use("/api/tools", toolsRoutes);
 app.use("/api/auth", authRoutes);
@@ -75,24 +85,6 @@ app.get("/ping", (req, res) => {
 });
 console.log("✅ API routes loaded");
 console.log("✅ NODE_ENV:", process.env.NODE_ENV);
-
-// Error handler
-app.use((err, req, res, next) => {
-  console.error("❌ Server error:", err);
-  res.status(500).json({ message: 'خطای سرور داخلی.' });
-});
-
-// Serve frontend always (including local dev)
-app.use(express.static(distPath));
-
-// This should always come after express.static
-app.get('*', (req, res) => {
-  // Avoid matching API routes
-  if (req.originalUrl.startsWith('/api')) {
-    return res.status(404).json({ message: 'API route not found' });
-  }
-  res.sendFile(path.join(distPath, 'index.html'));
-});
 
 
 // Error handler
