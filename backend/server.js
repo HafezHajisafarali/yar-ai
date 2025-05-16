@@ -78,8 +78,8 @@ console.log("✅ NODE_ENV:", process.env.NODE_ENV);
 
 // ✅ Serve frontend only in production
 if (process.env.NODE_ENV === 'production') {
-  app.get('*', (req, res) => {
   app.use(express.static(distPath));
+  app.get('*', (req, res) => {
     res.sendFile(path.join(distPath, 'index.html'));
   });
 }
