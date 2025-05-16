@@ -51,8 +51,6 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(express.static(distPath));
-
 app.use(session({
   secret: process.env.SESSION_SECRET || 'mySecret',
   resave: false,
@@ -78,8 +76,9 @@ app.get("/ping", (req, res) => {
 console.log("✅ API routes loaded");
 console.log("✅ NODE_ENV:", process.env.NODE_ENV);
 
-// 🔥 Serve frontend build only in production
+// ✅ Serve frontend only in production
 if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(distPath));
   app.get('*', (req, res) => {
     res.sendFile(path.join(distPath, 'index.html'));
   });
