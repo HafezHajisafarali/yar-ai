@@ -27,6 +27,7 @@ const PORT = parseInt(process.env.PORT) || 5050;
 const MONGO_URI = process.env.MONGO_URI;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+const distPath = path.join(__dirname, '../frontend/dist');
 
 // Middlewares
 console.log("⚙️ Setting up middlewares...");
@@ -49,6 +50,8 @@ app.use((req, res, next) => {
   console.log(`📥 ${req.method} ${req.url}`);
   next();
 });
+
+app.use(express.static(distPath));
 
 app.use(session({
   secret: process.env.SESSION_SECRET || 'mySecret',
