@@ -35,8 +35,8 @@ router.get(
   '/google/callback', 
   passport.authenticate('google', { failureRedirect: '/login' }),
   function(req, res) {
-    // Successful authentication, redirect to dashboard
-    res.redirect('/dashboard');
+    // Successful authentication, redirect to frontend root (React will handle the route)
+    res.redirect('/');
   }
 );
 console.log("✅ GET /google/callback route added");
