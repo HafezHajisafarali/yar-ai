@@ -76,15 +76,17 @@ app.get("/ping", (req, res) => {
 console.log("✅ API routes loaded");
 console.log("✅ NODE_ENV:", process.env.NODE_ENV);
 
-// ✅ Serve frontend always (including local dev)
-if (process.env.NODE_ENV === 'production' || true) {
-  app.use(express.static(distPath));
-  
-  // این باید بعد از express.static باشه
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(distPath, 'index.html'));
-  });
-}
+// Serve frontend always (including local dev)
+app.use(express.static(distPath));
+
+// This should always come after express.static
+app.get('*', (req, res) => {
+  // Avoid matching API routes
+  if (req.originalUrl.startsWith('/api')) {
+    return res.status(404).json({ message: 'API route not found' });
+  }
+  res.sendFile(path.join(distPath, 'index.html'));
+});
 
 
 // Error handler
