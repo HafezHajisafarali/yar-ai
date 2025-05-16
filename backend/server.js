@@ -76,6 +76,12 @@ app.get("/ping", (req, res) => {
 console.log("✅ API routes loaded");
 console.log("✅ NODE_ENV:", process.env.NODE_ENV);
 
+// Error handler
+app.use((err, req, res, next) => {
+  console.error("❌ Server error:", err);
+  res.status(500).json({ message: 'خطای سرور داخلی.' });
+});
+
 // Serve frontend always (including local dev)
 app.use(express.static(distPath));
 
