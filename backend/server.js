@@ -67,16 +67,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 console.log("✅ Passport initialized");
 
-// Serve frontend always (including local dev)
-app.use(express.static(distPath));
-
-// This should always come after express.static
-app.get('*', (req, res, next) => {
-  // Avoid matching API routes
-  if (req.originalUrl.startsWith('/api')) return next();
-  res.sendFile(path.join(distPath, 'index.html'));
-});
-
 // API routes
 app.use("/api/tools", toolsRoutes);
 app.use("/api/auth", authRoutes);
@@ -85,6 +75,20 @@ app.get("/ping", (req, res) => {
 });
 console.log("✅ API routes loaded");
 console.log("✅ NODE_ENV:", process.env.NODE_ENV);
+
+// Serve frontend always (including local dev)
+// Serve frontend only for non-API routes and non-file requests
+app.get('*', (req, res, next) => {
+  if (req.originalUrl.startsWith('/api')) return next();
+
+  if (req.accepts('html')) {
+    return res.sendFile(path.join(distPath, 'index.html'));
+  }
+
+  next();
+});
+
+app.use(express.static(distPath));
 
 
 // Error handler
