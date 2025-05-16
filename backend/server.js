@@ -27,7 +27,7 @@ const PORT = parseInt(process.env.PORT) || 5050;
 const MONGO_URI = process.env.MONGO_URI;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const distPath = path.join(__dirname, '../frontend/dist');
+const distPath = path.join(__dirname, '../dist');
 
 // Middlewares
 console.log("⚙️ Setting up middlewares...");
