@@ -76,9 +76,8 @@ app.get("/ping", (req, res) => {
 console.log("✅ API routes loaded");
 console.log("✅ NODE_ENV:", process.env.NODE_ENV);
 
-// ✅ Serve frontend only in production
-if (process.env.NODE_ENV === 'production') {
-  const distPath = path.join(__dirname, '../frontend/dist');
+// ✅ Serve frontend always (including local dev)
+if (process.env.NODE_ENV === 'production' || true) {
   app.use(express.static(distPath));
   
   // این باید بعد از express.static باشه
