@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { GoogleLogin } from "@react-oauth/google";
 import "./Login.css";
 import { authService } from "../services/api";
 
@@ -107,15 +106,16 @@ const Login = () => {
       
       <div className="social-login-options">
         <div className="google-login-wrapper">
-          <GoogleLogin
-            onSuccess={handleGoogleSuccess}
-            onError={handleGoogleError}
-            width="100%"
-            text="signin_with"
-            shape="rectangular"
-            locale="fa"
-            theme="filled_blue"
-          />
+          <button
+            className="google-btn"
+            onClick={() => {
+              window.location.href = 'http://y4r.net/api/auth/google';
+            }}
+            style={{ width: '100%', padding: '12px', borderRadius: '6px', background: '#4285f4', color: 'white', fontWeight: 500, fontSize: '1rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px' }}
+          >
+            <GoogleIcon />
+            ورود با گوگل
+          </button>
         </div>
         
         {error && <div className="error-message">{error}</div>}
