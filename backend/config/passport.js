@@ -1,22 +1,6 @@
-import express from 'express';
-import path from 'path';
 import passport from 'passport';
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
 import User from '../models/User.js';
-
-const __dirname = path.resolve();
-
-const app = express();
-
-const distPath = path.join(__dirname, '../frontend/dist');
-app.use(express.static(distPath));
-app.get('*', (req, res) => {
-  res.sendFile(path.join(distPath, 'index.html'));
-});
-
-app.use('/api/auth', authRoutes);
-app.use('/api/users', userRoutes);
-app.use('/api/products', productRoutes);
 
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
@@ -55,7 +39,3 @@ passport.deserializeUser(async (id, done) => {
 });
 
 export default passport;
-
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
