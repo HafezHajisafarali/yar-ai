@@ -33,10 +33,11 @@ const distPath = path.join(__dirname, '../frontend/dist');
 console.log("⚙️ Setting up middlewares...");
 
 app.use(cors({
-  origin: (origin, callback) => {
-    console.log('🌐 Request Origin:', origin);
-    callback(null, true);
-  },
+  origin: [
+    'http://y4r.net',
+    'https://y4r.net',
+    'http://localhost:3000'
+  ],
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true,
   allowedHeaders: ['Content-Type', 'Authorization'],
