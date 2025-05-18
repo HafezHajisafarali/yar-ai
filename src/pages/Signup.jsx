@@ -129,7 +129,6 @@ const Signup = () => {
           <button 
             type="submit" 
             className="signup-btn"
-            disabled={currentStep === 4}
           >
             {currentStep === totalSteps ? "تایید" : "بریم مرحله بعد"}
           </button>
