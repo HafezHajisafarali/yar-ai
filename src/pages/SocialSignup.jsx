@@ -83,7 +83,8 @@ export default function SocialSignup() {
           <button
             className="google-btn"
             onClick={() => {
-              window.location.href = 'http://y4r.net/api/auth/google';
+              const base = import.meta.env.VITE_API_URL || 'https://y4r.net/api';
+              window.location.href = base + '/auth/google';
             }}
             style={{ width: '100%', padding: '12px', borderRadius: '6px', background: '#4285f4', color: 'white', fontWeight: 500, fontSize: '1rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px' }}
           >
