@@ -118,8 +118,8 @@ if (!USE_MOCK_API) {
 export const authService = {
   login: (phone) => api.post('/auth/login', { phone }),
   verifyCode: (phone, code) => api.post('/auth/verify-phone', { phone, code }),
-  googleLogin: (credential) => api.post('/auth/google', { credential, isNewUser: false }),
-  googleSignup: (credential) => api.post('/auth/google', { credential, isNewUser: true }),
+  googleLogin: (credential) => api.post('/api/auth/google', { credential, isNewUser: false }),
+  googleSignup: (credential) => api.post('/api/auth/google', { credential, isNewUser: true }),
 };
 
 export default api;
