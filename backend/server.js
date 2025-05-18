@@ -36,6 +36,8 @@ app.use(cors({
   origin: [
     'http://y4r.net',
     'https://y4r.net',
+    'http://www.y4r.net',
+    'https://www.y4r.net',
     'http://localhost:3000'
   ],
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
