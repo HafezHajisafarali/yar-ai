@@ -109,7 +109,7 @@ const Login = () => {
           <button
             className="google-btn"
             onClick={() => {
-              window.location.href = 'http://y4r.net/api/auth/google';
+              window.location.href = '/api/auth/google';
             }}
             style={{ width: '100%', padding: '12px', borderRadius: '6px', background: '#4285f4', color: 'white', fontWeight: 500, fontSize: '1rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px' }}
           >
