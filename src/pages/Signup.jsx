@@ -139,8 +139,7 @@ const Signup = () => {
               className="google-btn"
               style={{ width: '100%', padding: '12px', borderRadius: '6px', background: '#4285f4', color: 'white', fontWeight: 500, fontSize: '1rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', marginTop: '1rem' }}
               onClick={() => {
-                const base = import.meta.env.VITE_API_URL || 'https://y4r.net/api';
-                window.location.href = base + '/auth/google';
+                const base = import.meta.env.VITE_API_URL || '/google';
               }}
             >
               <svg width="20" height="20" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
