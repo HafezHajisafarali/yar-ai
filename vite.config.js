@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react';
 import path from 'path';
 
 export default defineConfig({
-  base: '/', // 👈 این خط اضافه شده
+  base: './', // 👈 تغییر دادیم به ./
   plugins: [react()],
   resolve: {
     alias: {
@@ -13,7 +13,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://localhost:5050',
+        target: 'http://localhost:5050/api',
         changeOrigin: true,
         secure: false,
         configure: (proxy, _options) => {
@@ -21,7 +21,7 @@ export default defineConfig({
             if (err.code === 'ECONNREFUSED') {
               const currentPort = parseInt(proxy.options.target.split(':')[2]);
               if (currentPort < 5052) {
-                proxy.options.target = `http://localhost:${currentPort + 1}`;
+                proxy.options.target = `http://localhost:${currentPort + 1}/api`;
               }
             }
           });
