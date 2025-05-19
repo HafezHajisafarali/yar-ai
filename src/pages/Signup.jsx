@@ -139,7 +139,7 @@ const Signup = () => {
               className="google-btn"
               style={{ width: '100%', padding: '12px', borderRadius: '6px', background: '#4285f4', color: 'white', fontWeight: 500, fontSize: '1rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', marginTop: '1rem' }}
               onClick={() => {
-                const base = import.meta.env.VITE_API_BASE_URL || 'https://y4r.net/api';
+                const base = import.meta.env.VITE_API_URL || 'https://y4r.net/api/auth';
                 window.location.href = base + '/auth/google';
 
               }}

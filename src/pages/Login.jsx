@@ -109,7 +109,7 @@ const Login = () => {
           <button
             className="google-btn"
             onClick={() => {
-              const base = import.meta.env.VITE_API_BASE_URL || 'https://y4r.net/api';
+              const base = import.meta.env.VITE_API_URL || 'https://y4r.net/api/auth';
               window.location.href = base + '/auth/google';
 
             }}
