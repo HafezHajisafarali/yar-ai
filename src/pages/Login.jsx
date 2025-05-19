@@ -111,6 +111,7 @@ const Login = () => {
             onClick={() => {
               const base = import.meta.env.VITE_API_URL || 'https://y4r.net/api/auth';
               window.location.href = base + '/google';
+
             }}
             style={{ width: '100%', padding: '12px', borderRadius: '6px', background: '#4285f4', color: 'white', fontWeight: 500, fontSize: '1rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px' }}
           >
