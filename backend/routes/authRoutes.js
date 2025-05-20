@@ -57,7 +57,6 @@ console.log("✅ POST /change-password route added");
 router.post('/reset-users', resetUsers);
 console.log("✅ POST /reset-users route added");
 
-router.post('/google', googleAuth);
 console.log("✅ POST /google route added");
 
 console.log("✅ All auth routes set up!");
