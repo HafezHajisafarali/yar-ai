@@ -25,21 +25,21 @@ router.get('/me', verifyToken, (req, res) => {
 console.log("✅ GET /me route added");
 
 // Google OAuth routes
-router.get('/auth/google', passport.authenticate('google', {
+router.get('/google', passport.authenticate('google', {
   scope: ['profile', 'email']
 }));
-console.log("✅ GET /auth/google route added");
+console.log("✅ GET /google route added");
 
 // Fix the Google callback route
 router.get(
-  '/auth/google/callback', 
+  '/google/callback', 
   passport.authenticate('google', { failureRedirect: '/login' }),
   function(req, res) {
     // Successful authentication, redirect to frontend root (React will handle the route)
     res.redirect('/');
   }
 );
-console.log("✅ GET /auth/google/callback route added");
+console.log("✅ GET /google/callback route added");
 
 router.post('/register', registerUser);
 console.log("✅ POST /register route added");
