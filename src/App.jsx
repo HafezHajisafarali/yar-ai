@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
-import Signup from "./pages/Signup";
-import Login from "./pages/Login";
+import Signup from "./pages/signup";
+import Login from "./pages/login";
 import VerifyPhone from "./pages/VerifyPhone";
 import VerifyCode from "./pages/VerifyCode";
 import AdminDashboard from './pages/Admin/AdminDashboard';
@@ -21,8 +21,7 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<SocialSignup />} />
-      <Route path="/signup" element={<SocialSignup />} />
-      <Route path="/social-signup" element={<SocialSignup />} />
+      <Route path="/signup" element={<Signup />} />      <Route path="/social-signup" element={<SocialSignup />} />
       <Route path="/login" element={<Login />} />
       
       {/* مسیرهای موقتاً غیرفعال تا پیاده‌سازی کامل احراز هویت با شماره تلفن */}
