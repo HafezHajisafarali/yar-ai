@@ -186,7 +186,7 @@ const Signup = () => {
 
           <div className="signup-link">
             <span>قبلاً ثبت‌نام کردی؟</span>
-            <Link to="/login">همین حالا وارد شو</Link>
+            <Link to="/login">وارد شو</Link>
           </div>
         </form>
       </div>
