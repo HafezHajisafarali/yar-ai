@@ -1,168 +1,197 @@
-import { useState, useRef, useEffect } from "react";
-import { useEffect as useEffectOriginal } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
 import "./Signup.css";
+import { authService } from "../services/api";
+
+// Simple email validation regex
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+function EyeIcon({ open }) {
+  return (
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+      {open ? (
+        <path d="M10 4.37C3.75 4.37 1.25 10 1.25 10C1.25 10 3.75 15.63 10 15.63C16.25 15.63 18.75 10 18.75 10C18.75 10 16.25 4.37 10 4.37ZM10 13.75C7.93 13.75 6.25 12.07 6.25 10C6.25 7.93 7.93 6.25 10 6.25C12.07 6.25 13.75 7.93 13.75 10C13.75 12.07 12.07 13.75 10 13.75ZM10 7.5C8.62 7.5 7.5 8.62 7.5 10C7.5 11.38 8.62 12.5 10 12.5C11.38 12.5 12.5 11.38 12.5 10C12.5 8.62 11.38 7.5 10 7.5Z" fill="currentColor"/>
+      ) : (
+        <path d="M10 4.37C3.75 4.37 1.25 10 1.25 10C1.25 10 3.75 15.63 10 15.63C16.25 15.63 18.75 10 18.75 10C18.75 10 16.25 4.37 10 4.37ZM10 13.75C7.93 13.75 6.25 12.07 6.25 10C6.25 7.93 7.93 6.25 10 6.25C12.07 6.25 13.75 7.93 13.75 10C13.75 12.07 12.07 13.75 10 13.75Z" fill="currentColor"/>
+      )}
+    </svg>
+  );
+}
 
 const Signup = () => {
   const navigate = useNavigate();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [currentStep, setCurrentStep] = useState(1);
-  const totalSteps = 4;
-  const steps = ['۱', '۲', '۳', '۴'];
-
-  useEffect(() => {
-    document.documentElement.style.setProperty('--progress', currentStep);
-  }, [currentStep]);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (currentStep === 1) {
-      if (firstName && lastName) {
-        try {
-          console.log("🔍 Sending data:", { name: `${firstName.trim()} ${lastName.trim()}`, email: `${firstName.trim()}.${lastName.trim()}@mock.com` });
-          console.log("🧪 Fetching", import.meta.env.VITE_API_BASE_URL);
-          const res = await fetch(import.meta.env.VITE_API_BASE_URL, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ 
-              name: `${firstName.trim()} ${lastName.trim()}`,
-              email: `${firstName.trim()}.${lastName.trim()}@mock.com`
-            })
-          });
-          console.log("📥 Response status:", res.status);
-          
-          const data = await res.json();
-          
-          if (res.ok) {
-            localStorage.setItem("yar_name", `${firstName.trim()} ${lastName.trim()}`);
-            navigate("/social-signup");
-          } else {
-            console.error("Signup failed:", data.message || data.error);
-            alert(data.message || "خطایی در ثبت‌نام رخ داده است.");
-          }
-        } catch (err) {
-          console.error("❌ Signup error:", err);
-          alert("مشکلی در ارتباط با سرور پیش آمد: " + err.message);
-        }
+    setError("");
+
+    // Basic validation
+    if (!firstName || !lastName || !email || !password || !confirmPassword) {
+      setError("لطفاً تمام فیلدها را پر کنید");
+      return;
+    }
+
+    if (!EMAIL_REGEX.test(email)) {
+      setError("لطفاً یک ایمیل معتبر وارد کنید");
+      return;
+    }
+
+    if (password.length < 8) {
+      setError("رمز عبور باید حداقل ۸ کاراکتر باشد");
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      setError("رمز عبور و تکرار آن مطابقت ندارند");
+      return;
+    }
+
+    setIsLoading(true);
+
+    try {
+      const response = await authService.signup({
+        firstName,
+        lastName,
+        email,
+        password
+      });
+
+      localStorage.setItem('token', response.data.token);
+      localStorage.setItem('yar_email', response.data.email);
+      localStorage.setItem('yar_name', `${firstName} ${lastName}`);
+
+      setIsLoading(false);
+      navigate('/dashboard');
+    } catch (err) {
+      console.error("Signup error:", err);
+      
+      if (err.response) {
+        setError(err.response.data.message || "خطا در ثبت‌نام");
+      } else {
+        setError("خطا در برقراری ارتباط با سرور");
       }
-    } else if (currentStep === 4) {
-      // TODO: Handle final submission
-    }
-  };
-
-  const handleNextStep = () => {
-    if (currentStep < totalSteps) {
-      setCurrentStep(prev => prev + 1);
-    }
-  };
-
-  const handlePrevStep = () => {
-    if (currentStep > 1) {
-      setCurrentStep(prev => prev - 1);
-    }
-  };
-
-  const renderStep = () => {
-    switch (currentStep) {
-      case 1:
-        return (
-          <>
-            <div className="form-group">
-              <label>اسم کوچک</label>
-              <input
-                type="text"
-                value={firstName}
-                onChange={(e) => setFirstName(e.target.value)}
-                placeholder="مثلاً علی"
-                required
-              />
-            </div>
-
-            <div className="form-group">
-              <label>نام خانوادگی</label>
-              <input
-                type="text"
-                value={lastName}
-                onChange={(e) => setLastName(e.target.value)}
-                placeholder="مثلاً رضایی"
-                required
-              />
-            </div>
-          </>
-        );
-      case 4:
-        return (
-          <div className="form-group">
-            <label>انتخاب رمز عبور</label>
-            <input
-              type="password"
-              placeholder="رمز عبور"
-              required
-            />
-          </div>
-        );
-      default:
-        return null;
+      
+      setIsLoading(false);
     }
   };
 
   return (
     <div className="signup-container">
       <div className="form-wrapper">
-        <h1>
-          {currentStep === 1 && "به یار خوش اومدی!"}
-          {currentStep === 4 && "انتخاب رمز عبور"}
-        </h1>
-        <div style={{ height: "1rem" }}></div>
-        <p className="subtitle">
-          {currentStep === 1 && "برای شروع، فقط اسمتو بنویس :)"}
-          {currentStep === 4 && "لطفاً یک رمز عبور قوی انتخاب کنید"}
-        </p>
-        <div style={{ height: "1rem" }}></div>
+        <h1>به یار خوش اومدی!</h1>
+        <p className="subtitle">برای شروع، اطلاعات خود را وارد کنید</p>
 
         <form className="signup-form" onSubmit={handleSubmit}>
-          {renderStep()}
+          <div className="form-group">
+            <label htmlFor="firstName">اسم کوچک</label>
+            <input
+              type="text"
+              id="firstName"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+              placeholder="مثلاً علی"
+              required
+            />
+          </div>
 
-          <button 
-            type="submit" 
+          <div className="form-group">
+            <label htmlFor="lastName">نام خانوادگی</label>
+            <input
+              type="text"
+              id="lastName"
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+              placeholder="مثلاً رضایی"
+              required
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="email">ایمیل</label>
+            <input
+              type="email"
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="example@email.com"
+              required
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="password">رمز عبور</label>
+            <div className="password-input-wrapper">
+              <input
+                type={showPassword ? "text" : "password"}
+                id="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="رمز عبور خود را وارد کنید"
+                required
+              />
+              <button
+                type="button"
+                className="toggle-password"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                <EyeIcon open={showPassword} />
+              </button>
+            </div>
+            <span className="input-note">رمز عبور باید حداقل ۸ کاراکتر باشد</span>
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="confirmPassword">تکرار رمز عبور</label>
+            <div className="password-input-wrapper">
+              <input
+                type={showConfirmPassword ? "text" : "password"}
+                id="confirmPassword"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                placeholder="رمز عبور را مجدداً وارد کنید"
+                required
+              />
+              <button
+                type="button"
+                className="toggle-password"
+                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+              >
+                <EyeIcon open={showConfirmPassword} />
+              </button>
+            </div>
+          </div>
+
+          {error && <div className="error-message">{error}</div>}
+
+          <button
+            type="submit"
             className="signup-btn"
+            disabled={isLoading}
           >
-            {currentStep === totalSteps ? "تایید" : "بریم مرحله بعد"}
+            {isLoading ? (
+              <div className="loading-spinner"></div>
+            ) : (
+              "ثبت‌نام"
+            )}
           </button>
 
-          {currentStep === 1 && (
-            <button
-              type="button"
-              className="google-btn"
-              style={{ width: '100%', padding: '12px', borderRadius: '6px', background: '#4285f4', color: 'white', fontWeight: 500, fontSize: '1rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', marginTop: '1rem' }}
-              onClick={() => {
-                const base = import.meta.env.VITE_API_URL || 'https://y4r.net/api/auth';
-                window.location.href = base + '/google';
-              }}
-            >
-              <svg width="20" height="20" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z" fill="#FFC107"/>
-                <path d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z" fill="#FF3D00"/>
-                <path d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z" fill="#4CAF50"/>
-                <path d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z" fill="#1976D2"/>
-              </svg>
-              ادامه با گوگل
-            </button>
-          )}
-          {currentStep === 1 && (
-            <div className="signup-link">
-              <span>قبلاً ثبت‌نام کردی؟</span>
-              <a href="/login">همین حالا وارد شو</a>
-            </div>
-          )}
+          <div className="signup-link">
+            <span>قبلاً ثبت‌نام کردی؟</span>
+            <Link to="/login">همین حالا وارد شو</Link>
+          </div>
         </form>
       </div>
     </div>
   );
-
 };
 
 export default Signup;

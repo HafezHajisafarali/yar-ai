@@ -41,53 +41,42 @@ const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [phone, setPhone] = useState("");
 
-  const handleGoogleSuccess = async (credentialResponse) => {
-    console.log("Google Sign In Success:", credentialResponse);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     setError("");
+    
+    // Basic validation
+    if (!email || !password) {
+      setError("لطفاً ایمیل و رمز عبور را وارد کنید");
+      return;
+    }
+    
+    if (!EMAIL_REGEX.test(email)) {
+      setError("لطفاً یک ایمیل معتبر وارد کنید");
+      return;
+    }
+    
     setIsLoading(true);
     
     try {
-      // استفاده از اتصال به API شبیه‌سازی شده
-      const response = await authService.googleLogin(credentialResponse.credential);
-      console.log("Server login response:", response);
-      
+      const response = await authService.login(email, password);
       localStorage.setItem('token', response.data.token);
-      localStorage.setItem('yar_email', response.data.email || "user@example.com");
+      localStorage.setItem('yar_email', response.data.email);
       localStorage.setItem('yar_name', response.data.name || "کاربر یار");
-      localStorage.setItem('yar_picture', response.data.picture || "");
       
       setIsLoading(false);
       navigate('/dashboard');
     } catch (err) {
-      console.error("Google login error:", err);
+      console.error("Login error:", err);
       
       if (err.response) {
-        console.error("Error details:", err.response.data);
-        // اگر کاربر وجود نداشته باشد، به صفحه ثبت‌نام هدایت می‌شود
-        if (err.response.status === 404 || 
-            (err.response.data && 
-             (err.response.data.message === "User not found" || 
-              err.response.data.error === "User not found"))) {
-          setError("حساب کاربری شما یافت نشد. لطفا ابتدا ثبت‌نام کنید.");
-          setTimeout(() => {
-            navigate('/social-signup');
-          }, 2000);
-          return;
-        }
-        
-        setError(`خطا: ${err.response.data.message || err.response.data.error || "ورود با گوگل ناموفق بود"}`);
+        setError(err.response.data.message || "خطا در ورود به سیستم");
       } else {
-        setError("خطا در برقراری ارتباط با سرور. لطفاً دوباره تلاش کنید.");
+        setError("خطا در برقراری ارتباط با سرور");
       }
       
       setIsLoading(false);
     }
-  };
-
-  const handleGoogleError = () => {
-    console.error("Google Sign In Failed");
-    setError("ورود با گوگل ناموفق بود. لطفاً دوباره تلاش کنید.");
-    setIsLoading(false);
   };
 
   const handlePhoneChange = (e) => {
@@ -101,31 +90,62 @@ const Login = () => {
     <div className="login-container">
       <div className="login-header">
         <h1>ورود به حساب کاربری</h1>
-        <p>لطفا با استفاده از حساب گوگل وارد شوید</p>
+        <p>لطفا ایمیل و رمز عبور خود را وارد کنید</p>
       </div>
       
-      <div className="social-login-options">
-        <div className="google-login-wrapper">
-          <button
-            className="google-btn"
-            onClick={() => {
-              const base = import.meta.env.VITE_API_URL || 'https://y4r.net/api/auth';
-                window.location.href = base + '/google';
-
-            }}
-            style={{ width: '100%', padding: '12px', borderRadius: '6px', background: '#4285f4', color: 'white', fontWeight: 500, fontSize: '1rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px' }}
-          >
-            <GoogleIcon />
-            ورود با گوگل
-          </button>
+      <form onSubmit={handleSubmit} className="login-form">
+        <div className="form-group">
+          <label htmlFor="email">ایمیل</label>
+          <input
+            type="email"
+            id="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="example@email.com"
+            className="form-input"
+            required
+          />
+        </div>
+        
+        <div className="form-group">
+          <label htmlFor="password">رمز عبور</label>
+          <div className="password-input-wrapper">
+            <input
+              type={showPassword ? "text" : "password"}
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="رمز عبور خود را وارد کنید"
+              className="form-input"
+              required
+            />
+            <button
+              type="button"
+              className="toggle-password"
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              <EyeIcon open={showPassword} />
+            </button>
+          </div>
         </div>
         
         {error && <div className="error-message">{error}</div>}
-        {isLoading && <div className="loading-spinner"></div>}
-      </div>
+        
+        <button
+          type="submit"
+          className="login-button"
+          disabled={isLoading}
+        >
+          {isLoading ? (
+            <div className="loading-spinner"></div>
+          ) : (
+            "ورود به حساب کاربری"
+          )}
+        </button>
+      </form>
       
       <div className="signup-link">
-        <p>حساب کاربری ندارید؟ <span onClick={() => navigate('/social-signup')}>ثبت‌نام</span></p>
+        <p>حساب کاربری ندارید؟ <Link to="/signup">ثبت‌نام</Link></p>
       </div>
     </div>
   );
