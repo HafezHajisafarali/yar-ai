@@ -5,7 +5,7 @@
   display: flex;
   align-items: right;
   justify-content: center;
-  background: #fff;
+  background: #ffffff;
   font-family: 'Vazirmatn', 'IRANSans', sans-serif;
   padding: 2rem;
   direction: rtl;
@@ -73,7 +73,7 @@
 
 .form-group input:focus {
   outline: none;
-  border-color: #7c3aed;
+  border-color: #ffffff;
   background: #fff;
 }
 
