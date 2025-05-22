@@ -6,9 +6,6 @@ import { authService } from "../services/api";
 // Simple email validation regex
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-// Simple phone validation regex for Iran
-const PHONE_REGEX = /^09[0-9]{9}$/;
-
 function EyeIcon({ open }) {
   return (
     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -28,7 +25,6 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [phone, setPhone] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -68,73 +64,64 @@ const Login = () => {
     }
   };
 
-  const handlePhoneChange = (e) => {
-    const value = e.target.value.replace(/[^0-9]/g, '');
-    if (value.length <= 11) {
-      setPhone(value);
-    }
-  };
-
   return (
     <div className="login-container">
-      <div className="login-header">
+      <div className="form-wrapper">
         <h1>ورود به حساب کاربری</h1>
-        <p>لطفا ایمیل و رمز عبور خود را وارد کنید</p>
-      </div>
-      
-      <form onSubmit={handleSubmit} className="login-form">
-        <div className="form-group">
-          <label htmlFor="email">ایمیل</label>
-          <input
-            type="email"
-            id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="example@email.com"
-            className="form-input"
-            required
-          />
-        </div>
-        
-        <div className="form-group">
-          <label htmlFor="password">رمز عبور</label>
-          <div className="password-input-wrapper">
+        <p className="subtitle">لطفا ایمیل و رمز عبور خود را وارد کنید</p>
+
+        <form onSubmit={handleSubmit} className="login-form">
+          <div className="form-group">
+            <label htmlFor="email">ایمیل</label>
             <input
-              type={showPassword ? "text" : "password"}
-              id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="رمز عبور خود را وارد کنید"
-              className="form-input"
+              type="email"
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="example@email.com"
               required
             />
-            <button
-              type="button"
-              className="toggle-password"
-              onClick={() => setShowPassword(!showPassword)}
-            >
-              <EyeIcon open={showPassword} />
-            </button>
           </div>
+
+          <div className="form-group">
+            <label htmlFor="password">رمز عبور</label>
+            <div className="password-input-wrapper">
+              <input
+                type={showPassword ? "text" : "password"}
+                id="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="رمز عبور خود را وارد کنید"
+                required
+              />
+              <button
+                type="button"
+                className="toggle-password"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                <EyeIcon open={showPassword} />
+              </button>
+            </div>
+          </div>
+
+          {error && <div className="error-message">{error}</div>}
+
+          <button
+            type="submit"
+            className="login-button"
+            disabled={isLoading}
+          >
+            {isLoading ? (
+              <div className="loading-spinner"></div>
+            ) : (
+              "ورود به حساب کاربری"
+            )}
+          </button>
+        </form>
+
+        <div className="signup-link">
+          <p>حساب کاربری ندارید؟ <Link to="/signup">ثبت‌نام</Link></p>
         </div>
-        
-        {error && <div className="error-message">{error}</div>}
-        
-        <button
-          type="submit"
-          className="login-button"
-          disabled={isLoading}
-        >
-          {isLoading ? (
-            <div className="loading-spinner"></div>
-          ) : (
-            "ورود به حساب کاربری"
-          )}
-        </button>
-      </form>
-      
-      <div className="signup-link">
-        <p>حساب کاربری ندارید؟ <Link to="/signup">ثبت‌نام</Link></p>
       </div>
     </div>
   );
