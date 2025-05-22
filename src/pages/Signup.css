@@ -69,6 +69,8 @@
   color: #1e293b;
   background: #f9fafb;
   transition: border-color 0.2s;
+  direction: rtl;
+  text-align: right;
 }
 
 .form-group input:focus {
