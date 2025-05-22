@@ -71,6 +71,8 @@
   transition: border-color 0.2s;
   text-align: right;
   direction: rtl;
+  max-width: 320px;
+  margin: 0 auto;
 }
 
 .form-group input::placeholder {
