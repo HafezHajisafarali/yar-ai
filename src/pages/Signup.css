@@ -96,6 +96,7 @@
 }
 
 .toggle-password {
+  position: absolute;
   position:left;
   top: 50%;
   transform: translateY(-50%);
