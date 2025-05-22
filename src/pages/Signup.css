@@ -1,45 +1,39 @@
 .signup-container {
-  min-height: 100vh;
-  width: 100%;
   display: flex;
-  align-items: center;
   justify-content: center;
-  flex-direction: column;
-  font-family: 'Vazirmatn', sans-serif;
-  background-color: #f8fafc;
-  direction: rtl;
-  padding: 2rem;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f5f5f5;
+  padding: 20px;
 }
 
 .form-wrapper {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   width: 100%;
-  max-width: 480px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1.5rem;
+  max-width: 400px;
 }
 
 .form-wrapper h1 {
-  font-size: 2rem;
-  font-weight: 600;
-  color: #1e293b;
+  color: #333;
+  margin-bottom: 0.5rem;
   text-align: center;
-  margin: 0;
+  font-size: 1.8rem;
 }
 
 .subtitle {
-  font-size: 1.125rem;
-  color: #64748b;
+  color: #666;
   text-align: center;
-  margin: 0;
+  margin-bottom: 2rem;
+  font-size: 0.9rem;
 }
 
 .signup-form {
-  width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1rem;
 }
 
 .form-group {
@@ -49,127 +43,125 @@
 }
 
 .form-group label {
-  font-size: 0.875rem;
+  color: #333;
+  font-size: 0.9rem;
   font-weight: 500;
-  color: #64748b;
 }
 
 .form-group input {
-  width: 100%;
-  padding: 0.875rem 1rem;
-  border: 1px solid #e2e8f0;
-  border-radius: 0.75rem;
-  font-size: 0.875rem;
-  color: #1e293b;
-  transition: all 0.2s ease;
-  text-align: right;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  transition: border-color 0.2s;
 }
 
 .form-group input:focus {
   outline: none;
-  border-color: #7c3aed;
-  box-shadow: 0 0 0 2px rgba(124, 58, 237, 0.1);
-}
-
-.form-group input::placeholder {
-  color: #94a3b8;
+  border-color: #007bff;
 }
 
 .password-input-wrapper {
   position: relative;
-  width: 100%;
-}
-
-.password-input-wrapper input {
-  padding-right: 2.5rem;
 }
 
 .toggle-password {
   position: absolute;
-  right: 1rem;
+  right: 12px;
   top: 50%;
   transform: translateY(-50%);
   background: none;
   border: none;
-  padding: 0.25rem;
-  color: #64748b;
+  color: #666;
   cursor: pointer;
+  padding: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: color 0.2s ease;
 }
 
 .toggle-password:hover {
-  color: #7c3aed;
+  color: #333;
 }
 
 .input-note {
-  font-size: 0.75rem;
-  color: #64748b;
+  font-size: 0.8rem;
+  color: #666;
   margin-top: 0.25rem;
 }
 
-.signup-btn {
-  width: 100%;
-  padding: 0.875rem;
-  background-color: #7c3aed;
-  color: white;
-  border: none;
-  border-radius: 0.75rem;
-  font-size: 1rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-}
-
-.signup-btn:hover {
-  background-color: #6d28d9;
-}
-
-.signup-btn:disabled {
-  background-color: #e2e8f0;
-  cursor: not-allowed;
-}
-
 .error-message {
-  color: #ef4444;
-  font-size: 0.875rem;
+  color: #dc3545;
+  font-size: 0.9rem;
   text-align: center;
   margin-top: 0.5rem;
 }
 
-.loading-spinner {
-  width: 1.5rem;
-  height: 1.5rem;
-  border: 0.2rem solid rgba(255, 255, 255, 0.3);
-  border-top-color: white;
-  border-radius: 50%;
-  animation: spinner-border 0.75s linear infinite;
+.signup-btn {
+  background-color: #007bff;
+  color: white;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  margin-top: 1rem;
+  position: relative;
+  min-height: 44px;
 }
 
-@keyframes spinner-border {
-  to { transform: rotate(360deg); }
+.signup-btn:hover {
+  background-color: #0056b3;
+}
+
+.signup-btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.loading-spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #ffffff;
+  border-radius: 50%;
+  border-top-color: transparent;
+  animation: spin 1s linear infinite;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@keyframes spin {
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
 }
 
 .signup-link {
   text-align: center;
-  margin-top: 1.5rem;
-  color: #64748b;
-  font-size: 0.875rem;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: #666;
 }
 
 .signup-link a {
-  color: #7c3aed;
+  color: #007bff;
   text-decoration: none;
-  font-weight: 500;
-  margin-right: 0.25rem;
+  margin-right: 0.5rem;
 }
 
 .signup-link a:hover {
   text-decoration: underline;
+}
+
+@media (max-width: 480px) {
+  .form-wrapper {
+    padding: 1.5rem;
+  }
+
+  .form-wrapper h1 {
+    font-size: 1.5rem;
+  }
 }
