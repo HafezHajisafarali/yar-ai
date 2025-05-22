@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700&display=swap');
 
 .signup-container {
-  min-height: 100vh;
+  min-height: 80hv;
   display: flex;
   align-items: right;
   justify-content: center;
