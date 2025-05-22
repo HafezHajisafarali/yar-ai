@@ -33,30 +33,23 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
-
-    // Basic validation
     if (!firstName || !lastName || !email || !password || !confirmPassword) {
       setError("لطفاً تمام فیلدها را پر کنید");
       return;
     }
-
     if (!EMAIL_REGEX.test(email)) {
       setError("لطفاً یک ایمیل معتبر وارد کنید");
       return;
     }
-
     if (password.length < 8) {
       setError("رمز عبور باید حداقل ۸ کاراکتر باشد");
       return;
     }
-
     if (password !== confirmPassword) {
       setError("رمز عبور و تکرار آن مطابقت ندارند");
       return;
     }
-
     setIsLoading(true);
-
     try {
       const response = await authService.signup({
         firstName,
@@ -64,22 +57,13 @@ const Signup = () => {
         email,
         password
       });
-
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('yar_email', response.data.email);
       localStorage.setItem('yar_name', `${firstName} ${lastName}`);
-
       setIsLoading(false);
       navigate('/dashboard');
     } catch (err) {
-      console.error("Signup error:", err);
-      
-      if (err.response) {
-        setError(err.response.data.message || "خطا در ثبت‌نام");
-      } else {
-        setError("خطا در برقراری ارتباط با سرور");
-      }
-      
+      setError("خطا در ثبت‌نام");
       setIsLoading(false);
     }
   };
@@ -89,7 +73,6 @@ const Signup = () => {
       <div className="form-wrapper">
         <h1>به یار خوش اومدی!</h1>
         <p className="subtitle">برای شروع، اطلاعات خود را وارد کنید</p>
-
         <form className="signup-form" onSubmit={handleSubmit}>
           <div className="form-group">
             <label htmlFor="firstName">اسم کوچک</label>
@@ -102,7 +85,6 @@ const Signup = () => {
               required
             />
           </div>
-
           <div className="form-group">
             <label htmlFor="lastName">نام خانوادگی</label>
             <input
@@ -114,7 +96,6 @@ const Signup = () => {
               required
             />
           </div>
-
           <div className="form-group">
             <label htmlFor="email">ایمیل</label>
             <input
@@ -126,7 +107,6 @@ const Signup = () => {
               required
             />
           </div>
-
           <div className="form-group">
             <label htmlFor="password">رمز عبور</label>
             <div className="password-input-wrapper">
@@ -148,7 +128,6 @@ const Signup = () => {
             </div>
             <span className="input-note">رمز عبور باید حداقل ۸ کاراکتر باشد</span>
           </div>
-
           <div className="form-group">
             <label htmlFor="confirmPassword">تکرار رمز عبور</label>
             <div className="password-input-wrapper">
@@ -169,21 +148,10 @@ const Signup = () => {
               </button>
             </div>
           </div>
-
           {error && <div className="error-message">{error}</div>}
-
-          <button
-            type="submit"
-            className="signup-btn"
-            disabled={isLoading}
-          >
-            {isLoading ? (
-              <div className="loading-spinner"></div>
-            ) : (
-              "ثبت‌نام"
-            )}
+          <button type="submit" className="signup-btn" disabled={isLoading}>
+            {isLoading ? <div className="loading-spinner"></div> : "ثبت‌نام"}
           </button>
-
           <div className="signup-link">
             <span>قبلاً ثبت‌نام کردی؟</span>
             <Link to="/login">وارد شو</Link>
