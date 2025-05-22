@@ -49,7 +49,7 @@
 }
 
 .form-group {
-  display: flex;
+  display: right;
   flex-direction: column;
   gap: 0.5rem;
 }

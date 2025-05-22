@@ -75,7 +75,7 @@ const Signup = () => {
         <p className="subtitle">برای شروع، اطلاعات خود را وارد کنید</p>
         <form className="signup-form" onSubmit={handleSubmit}>
           <div className="form-group">
-            <label htmlFor="firstName">اسم کوچک</label>
+            <label htmlFor="firstName">نام</label>
             <input
               type="text"
               id="firstName"
