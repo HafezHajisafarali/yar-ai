@@ -1,39 +1,51 @@
+@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700&display=swap');
+
 .signup-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   min-height: 100vh;
-  background-color: #f5f5f5;
-  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  font-family: 'Vazirmatn', 'IRANSans', sans-serif;
+  padding: 2rem;
+  direction: rtl;
 }
 
 .form-wrapper {
-  background: white;
-  padding: 2rem;
-  border-radius: 12px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background: #fff;
+  padding: 2.5rem 2rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px 0 rgba(60, 72, 88, 0.08);
+  border: 1px solid #f0f0f0;
   width: 100%;
-  max-width: 400px;
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .form-wrapper h1 {
-  color: #333;
+  color: #1e293b;
+  font-size: 2rem;
+  font-weight: 700;
   margin-bottom: 0.5rem;
   text-align: center;
-  font-size: 1.8rem;
+  letter-spacing: -1px;
 }
 
 .subtitle {
-  color: #666;
+  color: #64748b;
   text-align: center;
   margin-bottom: 2rem;
-  font-size: 0.9rem;
+  font-size: 1rem;
+  font-weight: 400;
 }
 
 .signup-form {
+  width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1.25rem;
 }
 
 .form-group {
@@ -43,22 +55,26 @@
 }
 
 .form-group label {
-  color: #333;
-  font-size: 0.9rem;
+  color: #1e293b;
+  font-size: 1rem;
   font-weight: 500;
+  margin-bottom: 0.25rem;
 }
 
 .form-group input {
-  padding: 0.75rem;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  font-size: 0.9rem;
+  padding: 0.85rem 1rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.75rem;
+  font-size: 1rem;
+  color: #1e293b;
+  background: #f9fafb;
   transition: border-color 0.2s;
 }
 
 .form-group input:focus {
   outline: none;
-  border-color: #007bff;
+  border-color: #7c3aed;
+  background: #fff;
 }
 
 .password-input-wrapper {
@@ -67,52 +83,60 @@
 
 .toggle-password {
   position: absolute;
-  right: 12px;
+  right: 16px;
   top: 50%;
   transform: translateY(-50%);
   background: none;
   border: none;
-  color: #666;
+  color: #64748b;
   cursor: pointer;
   padding: 0;
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: color 0.2s;
 }
 
 .toggle-password:hover {
-  color: #333;
+  color: #7c3aed;
 }
 
 .input-note {
-  font-size: 0.8rem;
-  color: #666;
+  font-size: 0.85rem;
+  color: #64748b;
   margin-top: 0.25rem;
 }
 
 .error-message {
-  color: #dc3545;
-  font-size: 0.9rem;
+  color: #e53e3e;
+  font-size: 0.95rem;
   text-align: center;
   margin-top: 0.5rem;
+  background: #fff5f5;
+  border: 1px solid #fc8181;
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
 }
 
 .signup-btn {
-  background-color: #007bff;
+  background-color: #7c3aed;
   color: white;
-  padding: 0.75rem;
+  padding: 0.85rem;
   border: none;
-  border-radius: 8px;
-  font-size: 1rem;
+  border-radius: 0.75rem;
+  font-size: 1.1rem;
+  font-weight: 500;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: background-color 0.2s, box-shadow 0.2s;
   margin-top: 1rem;
   position: relative;
-  min-height: 44px;
+  min-height: 48px;
+  box-shadow: 0 2px 8px rgba(124, 58, 237, 0.08);
 }
 
 .signup-btn:hover {
-  background-color: #0056b3;
+  background-color: #6d28d9;
+  box-shadow: 0 4px 16px rgba(124, 58, 237, 0.12);
 }
 
 .signup-btn:disabled {
@@ -121,11 +145,11 @@
 }
 
 .loading-spinner {
-  width: 20px;
-  height: 20px;
-  border: 2px solid #ffffff;
+  width: 22px;
+  height: 22px;
+  border: 3px solid #e2e8f0;
+  border-top: 3px solid #7c3aed;
   border-radius: 50%;
-  border-top-color: transparent;
   animation: spin 1s linear infinite;
   position: absolute;
   left: 50%;
@@ -141,15 +165,16 @@
 
 .signup-link {
   text-align: center;
-  margin-top: 1rem;
-  font-size: 0.9rem;
-  color: #666;
+  margin-top: 1.5rem;
+  font-size: 1rem;
+  color: #64748b;
 }
 
 .signup-link a {
-  color: #007bff;
+  color: #7c3aed;
   text-decoration: none;
   margin-right: 0.5rem;
+  font-weight: 500;
 }
 
 .signup-link a:hover {
@@ -158,10 +183,13 @@
 
 @media (max-width: 480px) {
   .form-wrapper {
-    padding: 1.5rem;
+    padding: 1.25rem;
   }
-
   .form-wrapper h1 {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
+  }
+  .signup-btn {
+    font-size: 1rem;
+    padding: 0.7rem;
   }
 }
