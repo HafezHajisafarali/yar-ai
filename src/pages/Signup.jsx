@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import "./Signup.css";
-import { authService } from "../services/api";
 
 // Simple email validation regex
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -51,19 +50,34 @@ const Signup = () => {
     }
     setIsLoading(true);
     try {
-      const response = await authService.signup({
-        firstName,
-        lastName,
-        email,
-        password
+      const response = await fetch("https://api.yourdomain.com/api/auth/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          firstName,
+          lastName,
+          email,
+          password
+        })
       });
-      localStorage.setItem('token', response.data.token);
-      localStorage.setItem('yar_email', response.data.email);
-      localStorage.setItem('yar_name', `${firstName} ${lastName}`);
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        setError(data.message || "خطا در ثبت‌نام");
+        setIsLoading(false);
+        return;
+      }
+
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("yar_email", data.email);
+      localStorage.setItem("yar_name", `${firstName} ${lastName}`);
       setIsLoading(false);
-      navigate('/dashboard');
+      navigate("/dashboard");
     } catch (err) {
-      setError("خطا در ثبت‌نام");
+      setError("خطا در اتصال به سرور");
       setIsLoading(false);
     }
   };

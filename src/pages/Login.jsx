@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import "./Login.css";
-import { authService } from "../services/api";
 
 // Simple email validation regex
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -44,22 +43,33 @@ const Login = () => {
     setIsLoading(true);
     
     try {
-      const response = await authService.login(email, password);
-      localStorage.setItem('token', response.data.token);
-      localStorage.setItem('yar_email', response.data.email);
-      localStorage.setItem('yar_name', response.data.name || "کاربر یار");
-      
-      setIsLoading(false);
-      navigate('/dashboard');
-    } catch (err) {
-      console.error("Login error:", err);
-      
-      if (err.response) {
-        setError(err.response.data.message || "خطا در ورود به سیستم");
-      } else {
-        setError("خطا در برقراری ارتباط با سرور");
+      const response = await fetch("https://api.yourdomain.com/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          email,
+          password
+        })
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        setError(data.message || "خطا در ورود به سیستم");
+        setIsLoading(false);
+        return;
       }
-      
+
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("yar_email", data.email);
+      localStorage.setItem("yar_name", data.name || "کاربر یار");
+
+      setIsLoading(false);
+      navigate("/dashboard");
+    } catch (err) {
+      setError("خطا در اتصال به سرور");
       setIsLoading(false);
     }
   };
