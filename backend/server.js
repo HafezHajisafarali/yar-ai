@@ -32,13 +32,7 @@ const distPath = path.join(__dirname, '../frontend/dist');
 console.log("⚙️ Setting up middlewares...");
 
 app.use(cors({
-  origin: [
-    'http://y4r.net',
-    'https://y4r.net',
-    'http://www.y4r.net',
-    'https://www.y4r.net',
-    'http://localhost:3000'
-  ],
+  origin: 'https://www.y4r.net',
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true,
   allowedHeaders: ['Content-Type', 'Authorization'],
