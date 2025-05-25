@@ -13,6 +13,7 @@ console.log("🔍 Setting up auth routes...");
 router.post('/login', loginUser);
 console.log("✅ POST /login route added");
 
+router.post('/register', registerUser);
 router.post('/verify-phone', verifyPhoneCode);
 console.log("✅ POST /verify-phone route added");
 
