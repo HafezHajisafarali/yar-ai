@@ -39,7 +39,7 @@ export default function Summarize() {
     if (!originalText.trim()) return;
     setIsProcessing(true);
     try {
-      const response = await fetch('/api/tools/unprotected/summarizer', {
+      const response = await fetch('https://y4r.net/api/tools/unprotected/summarizer', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 

@@ -21,7 +21,7 @@ export default function AdminDashboard() {
 
   const fetchUsers = async () => {
     try {
-      const res = await fetch('http://localhost:5050/api/admin/users', {
+      const res = await fetch('https://y4r.net/api/admin/users', {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('yar_token')}`,
         },
