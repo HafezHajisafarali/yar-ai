@@ -43,7 +43,7 @@ const Login = () => {
     setIsLoading(true);
     
     try {
-      const response = await fetch("https://y4r.net/api/auth/login", {
+      const response = await fetch("https://www.y4r.net/api/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

@@ -48,7 +48,7 @@ export default function Translation() {
     if (!sourceText.trim()) return;
     setIsTranslating(true);
     try {
-      const response = await fetch('https://y4r.net/api/tools/unprotected/translator', {
+      const response = await fetch('https://www.y4r.net/api/tools/unprotected/translator', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

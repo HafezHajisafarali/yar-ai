@@ -20,7 +20,7 @@ const VerifyPhone = () => {
     try {
       console.log("📦 email:", email);
       console.log("📞 Sending:", { phone: phoneNumber, email });
-      const response = await fetch("https://y4r.net/api/auth/verify-phone", {
+      const response = await fetch("https://www.y4r.net/api/auth/verify-phone", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

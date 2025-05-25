@@ -46,7 +46,7 @@ export default function Grammar() {
     setIsProcessing(true);
   
     try {
-      const response = await fetch('https://y4r.net/api/tools/unprotected/grammar', {
+      const response = await fetch('https://www.y4r.net/api/tools/unprotected/grammar', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

@@ -70,7 +70,7 @@ const api = USE_MOCK_API
       },
     }
   : axios.create({
-      baseURL: import.meta.env.VITE_API_URL || 'https://y4r.net/api',      timeout: 10000,
+      baseURL: import.meta.env.VITE_API_URL || 'https://www.y4r.net/api',      timeout: 10000,
       headers: {
         'Content-Type': 'application/json',
       },

@@ -104,7 +104,7 @@ export default function TextGenerator() {
     try {
       console.log('Sending request with:', { prompt, tone, contentType, language, length });
       
-      const response = await fetch('https://y4r.net/api/tools/unprotected/textGenerator', {
+      const response = await fetch('https://www.y4r.net/api/tools/unprotected/textGenerator', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

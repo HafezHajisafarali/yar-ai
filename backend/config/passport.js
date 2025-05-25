@@ -5,7 +5,7 @@ import User from '../models/User.js';
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: "http://y4r.net/api/auth/google/callback", // <-- This must match your Google Cloud Console
+    callbackURL: "https://www.y4r.net/api/auth/google/callback", // <-- This must match your Google Cloud Console
   },
   async (accessToken, refreshToken, profile, done) => {
     try {
