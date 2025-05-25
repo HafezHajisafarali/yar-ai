@@ -42,6 +42,8 @@ app.use(cors({
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true,
   allowedHeaders: ['Content-Type', 'Authorization'],
+  preflightContinue: true,
+  optionsSuccessStatus: 200,
 }));
 console.log("✅ CORS applied");
 
