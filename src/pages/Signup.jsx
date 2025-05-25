@@ -50,14 +50,14 @@ const Signup = () => {
     }
     setIsLoading(true);
     try {
+      const name = `${firstName} ${lastName}`;
       const response = await fetch("https://www.y4r.net/api/auth/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
-          firstName,
-          lastName,
+          name,
           email,
           password
         })
@@ -73,7 +73,7 @@ const Signup = () => {
 
       localStorage.setItem("token", data.token);
       localStorage.setItem("yar_email", data.email);
-      localStorage.setItem("yar_name", `${firstName} ${lastName}`);
+      localStorage.setItem("yar_name", name);
       setIsLoading(false);
       navigate("/dashboard");
     } catch (err) {
