@@ -51,7 +51,7 @@ const Signup = () => {
     setIsLoading(true);
     try {
       const name = `${firstName} ${lastName}`;
-      const response = await fetch("https://www.y4r.net/api/auth/register", {
+      const response = await fetch("/api/auth/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
